@@ -32,19 +32,19 @@ unsigned int get_int_size(unsigned int val, int base){ // get the number of digi
     return count;
 }
 
-unsigned char get_ascii(unsigned int digit){
+unsigned char get_ascii(unsigned int digit){ // get ascii value of an integer
     unsigned char ascii = 0;
     if (digit >= 0 && digit <= 9){ // if char is 0-9
-            ascii = digit + 48; // for now; implement hex later if digit between 11 and 15 or whatever
+            ascii = digit + 48;
         }
     if (digit >= 10 && digit <= 15){ // if hex a-f
-             ascii = digit + 87; // for now; implement hex later if digit between 11 and 15 or whatever
+             ascii = digit + 87; 
         }
     return ascii;
 }
 
 
-int unsigned_to_base(char *buf, size_t bufsize, unsigned int val, int base, size_t min_width)
+int unsigned_to_base(char *buf, size_t bufsize, unsigned int val, int base, size_t min_width) // takes in an unsigned integer and base and turns it into a string
 {
     if (bufsize == 0){
         return min_width; // equal to chars written if there were space
@@ -111,7 +111,7 @@ int unsigned_to_base(char *buf, size_t bufsize, unsigned int val, int base, size
 
 }
 
-int signed_to_base(char *buf, size_t bufsize, int val, int base, size_t min_width)
+int signed_to_base(char *buf, size_t bufsize, int val, int base, size_t min_width) //takes in an unsigned OR signed integer and base and turns it into a string
 {
     if(val >= 0){ // if val is NOT neg, then treat as if unsigned
         return unsigned_to_base(buf, bufsize, val, base, min_width);
@@ -129,7 +129,7 @@ int signed_to_base(char *buf, size_t bufsize, int val, int base, size_t min_widt
     }
 }
 
-int vsnprintf(char *buf, size_t bufsize, const char *format, va_list arg)
+int vsnprintf(char *buf, size_t bufsize, const char *format, va_list arg) // printf functionality given format and list of arguments
 {
     char temp[1024];
     size_t tempsize = sizeof(temp);
@@ -193,7 +193,7 @@ int vsnprintf(char *buf, size_t bufsize, const char *format, va_list arg)
     return strlen(buf);
 }
 
-int snprintf(char *buf, size_t bufsize, const char *format, ...)
+int snprintf(char *buf, size_t bufsize, const char *format, ...) // calls vsnprintf with list of arguments
 {
     va_list arg;
     va_start(arg, format);
@@ -203,7 +203,7 @@ int snprintf(char *buf, size_t bufsize, const char *format, ...)
 
     }
 
-int printf(const char *format, ...)
+int printf(const char *format, ...) 
 {
     char input[MAX_OUTPUT_LEN];
     va_list arg;
