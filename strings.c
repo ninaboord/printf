@@ -1,8 +1,9 @@
 #include "strings.h"
 
+// copy contents from src to dst one byte at a time
 void *memcpy(void *dst, const void *src, size_t n)
 {
-    /* Copy contents from src to dst one byte at a time */
+
     char *d = dst;
     const char *s = src;
     while (n--) {
@@ -11,6 +12,7 @@ void *memcpy(void *dst, const void *src, size_t n)
     return dst;
 }
 
+// set a particular space in memory to a specific value (for debugging purpouses to avoid confusing garbage values)
 void *memset(void *dst, int val, size_t n)
 {
     unsigned char least_sig_bit = 255&val; // do this in order to get only last 8 bits of val
@@ -42,6 +44,7 @@ return *s1 - *s2;
 
 }
 
+// concatinates two strings given a dstsize limit. if concatination is larger than dst size, truncate output. this prevents unwanted memory overwriting.
 size_t strlcat(char *dst, const char *src, size_t dstsize)
 {
     unsigned int valid = 0;
@@ -56,8 +59,7 @@ size_t strlcat(char *dst, const char *src, size_t dstsize)
     if (valid == 0){
         return (dstsize + length_src);
     }
-    
-// using memcopy
+ 
     unsigned int start_concat_index = strlen(dst);
     unsigned int space_left = dstsize - start_concat_index - 1; // this is the number of spaces left in dst
     dst += start_concat_index; // start off dst after any chars already in dst
@@ -72,8 +74,7 @@ size_t strlcat(char *dst, const char *src, size_t dstsize)
     *dst = '\0';
     return (start_concat_index + length_src);
 
-// using indicies
-// basically i ended up coding this function in two different ways. they both work though! I kept this just in case I ran into a bug with strlcat
+// i ended up coding this function in two different ways. they both work though! I kept this just in case I ran into a bug with strlcat
     // unsigned int start_concat_index = strlen(dst);
     // unsigned int curr_src_index = 0;
     // unsigned int curr_dst_index = start_concat_index;
@@ -100,7 +101,7 @@ unsigned int isHex(const char *str){
     return hex;
 }
 
-
+// converts a string into a number and changes endptr to point to the char in the string where strtonum stopped (either the nullptr or first invalid character)
 unsigned int strtonum(const char *str, const char **endptr)
 {
     unsigned int n = 0;
